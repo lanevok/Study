@@ -36,7 +36,7 @@ public class TFIDF {
     // 3.ファイル出力有効化
     final boolean fileOutput = true;
     // 4.入力ファイル文字コード
-    final String code = "MS932";		// Shift-JIS
+    final String code = "MS932";	// Shift-JIS
     /************************************************************/
     
     String word;
@@ -54,11 +54,11 @@ public class TFIDF {
 	    System.err.println("TF Doc : "+inputFileName[i]);
 	    br = new BufferedReader(new InputStreamReader(new FileInputStream(currentDirectory+inputFileName[i]), code));
 	    if(fileOutput) System.setOut(new PrintStream(new File("result/"+inputFileName[i])));
-	    TF_MAP = new HashMap<String,Integer>();		// Document毎に初期化
+	    TF_MAP = new HashMap<String,Integer>();	// Document毎に初期化
 	    
 	    while((word=br.readLine())!=null) TF_MAP.put(word, TF_MAP.containsKey(word)?TF_MAP.get(word)+1:1);
 	    if(!fileOutput) System.out.println(TF_MAP.toString());
-	    it = TF_MAP.keySet().iterator();		// TF_MAPのkeyとなるwordをSetとして保有させる
+	    it = TF_MAP.keySet().iterator();	// TF_MAPのkeyとなるwordをSetとして保有させる
 	    while(it.hasNext()){
 		word = it.next();
 		valueTFIDF = TF_MAP.get(word)*Math.log(1.0*inputFileName.length/DF_MAP.get(word));
@@ -94,8 +94,8 @@ public class TFIDF {
 	long startTime = System.currentTimeMillis();
 	TFIDF tfidf = new TFIDF();
 	
-	tfidf.DF_Create();		// DF_MAPを作成する
-	tfidf.TF_Output();		// TFを調べ TF-IDFを計算し出力する
+	tfidf.DF_Create();	// DF_MAPを作成する
+	tfidf.TF_Output();	// TFを調べ TF-IDFを計算し出力する
 	System.err.println("----- Finish -----");
 	System.err.println("Time : "+((System.currentTimeMillis()-startTime)*1.0/1000)+" sec");
     }
