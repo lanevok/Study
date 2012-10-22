@@ -9,18 +9,12 @@ import java.util.Iterator;
 
 public class TFIDF {
     
-    /** Setting ******************************************************************/
-    // 1.カレントディレクトリパス
     final String currentDirectory = "C:/Users/UserName/workspace/Project/";
-    // 2.入力ファイル名
     final String[] inputFileName = {
 	"0.txt","1.txt","2.txt","3.txt","4.txt","5.txt","6.txt","7.txt","8.txt","9.txt"
     };
-    // 3.ファイル出力有効化
     final boolean fileOutput = true;
-    // 4.入力ファイル文字コード
-    final String code = "MS932";	// Shift-JIS
-    /*****************************************************************************/
+    final String code = "MS932";
     
     String word;
     BufferedReader br;
