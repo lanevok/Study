@@ -1,7 +1,7 @@
 public class ExecutorPublish implements Runnable{
-	// タスクを分離したときに使う変数宣言
+    // タスクを分離したときに使う変数宣言
     private String tab="";
-
+    
     // クラス生成(タスク分離の初期設定)
     public ExecutorPublish(int tab){
         for(int i=0; i<=tab; i++){
