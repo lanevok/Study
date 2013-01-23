@@ -21,7 +21,7 @@ $result = mysql_query($query,$conn);
 
 // タプルの取り出し
 while ($tuple = mysql_fetch_array($result)){
-	echo '<p>'.$tuple['id'].':'.$tuple['text'].'</p>';
+  echo '<p>'.$tuple['id'].':'.$tuple['text'].'</p>';
 }
 
 // データベースのクローズ
@@ -34,4 +34,4 @@ CREATE  TABLE `mydb`.`table` (
   `text` VARCHAR(45) NULL ,
   PRIMARY KEY (`id`) );
 
- */
+*/
