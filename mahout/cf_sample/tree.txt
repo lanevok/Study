@@ -1,0 +1,29 @@
+S:.
+„   .classpath
+„   .project
+„   pom.xml
+„   tree.txt
+„   
+„¥„Ÿ.settings
+„       org.eclipse.jdt.core.prefs
+„       org.eclipse.m2e.core.prefs
+„       
+„¥„Ÿmahout-distribution-0.8
+                   
+„¥„Ÿsrc
+„   „¥„Ÿmain
+„   „   „¥„Ÿjava
+„   „   „       MahoutSample.java
+„   „   „       
+„   „   „¤„Ÿresources
+„   „           data.csv
+„   „           
+„   „¤„Ÿtest
+„       „¥„Ÿjava
+„       „¤„Ÿresources
+„¤„Ÿtarget
+    „¥„Ÿclasses
+    „       data.csv
+    „       MahoutSample.class
+    „       
+    „¤„Ÿtest-classes
