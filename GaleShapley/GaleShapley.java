@@ -2,28 +2,41 @@ import java.util.Scanner;
 
 /**
  *
- * Gale-Shapley ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ 
- * (å®‰å®šçµå©šå•é¡Œ)
+ * Gale-Shapley ƒAƒ‹ƒSƒŠƒYƒ€
+ * (ˆÀ’èŒ‹¥–â‘è)
  *
- * ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ 
- * 1. èª°ã«ã‚‚ã‚­ãƒ¼ãƒ—ã•ã‚Œã¦ã„ãªã„ç”·æ€§1ä»»ãŒã€(ä»Šã¾ã§ãµã‚‰ã‚Œã¦ã„ãªã„ä¸­ã§)ä¸€ç•ªçµå©šã—ãŸã„å¥³æ€§ã«å‘Šç™½ã™ã‚‹ã€‚
- * 2. å‘Šç™½ã‚’å—ã‘ãŸå¥³æ€§ã¯ã€
- * ã€€ã€€å—ç†: ç›¸æ‰‹ãŒã„ãªã„ or ä»Šã‚­ãƒ¼ãƒ—ã—ã¦ã„ã‚‹äººã‚ˆã‚Šã‚‚ã‚ˆã„ç›¸æ‰‹ãªã‚‰å‘Šç™½ã—ã¦ããŸäººã‚’ã‚­ãƒ¼ãƒ—ã™ã‚‹
- * ã€€ã€€ã€€ã€€ã€€(ä»Šã¾ã§ã‚­ãƒ¼ãƒ—ã—ã¦ãŸäººã¨ã¯ã•ã‚ˆãªã‚‰ã™ã‚‹)
- * ã€€ã€€æ‹’å¦: ä»Šã‚­ãƒ¼ãƒ—ã—ã¦ã„ã‚‹äººã®æ²³ãŒã‚ˆã„ãªã‚‰å‘Šç™½ã‚’æ–­ã‚‹
- * 3. 1,2 ã‚’ç¹°ã‚Šè¿”ã—ã€å…¨ç”·æ€§ãŒèª°ã‹ã—ã‚‰ã«ã‚­ãƒ¼ãƒ—ã•ã‚ŒãŸã‚‰ãã®æ™‚ç‚¹ã®ãƒšã‚¢(å®Œå…¨ãƒãƒƒãƒãƒ³ã‚°)ãŒå®Œæˆ
+ * ƒAƒ‹ƒSƒŠƒYƒ€
+ * 1. ’N‚É‚àƒL[ƒv‚³‚ê‚Ä‚¢‚È‚¢’j«1l‚ªA(¡‚Ü‚Åƒtƒ‰‚ê‚Ä‚¢‚È‚¢’†‚Å)ˆê”ÔŒ‹¥‚µ‚½‚¢—«‚É”’‚·‚éB
+ * 2. ”’‚ğó‚¯‚½—«‚ÍA
+ * @@ó—: ‘Šè‚ª‚¢‚È‚¢ or ¡ƒL[ƒv‚µ‚Ä‚¢‚él‚æ‚è‚à‚æ‚¢‘Šè‚È‚ç”’‚µ‚Ä‚«‚½l‚ğƒL[ƒv‚·‚é
+ * @@@@@(¡‚Ü‚ÅƒL[ƒv‚µ‚Ä‚½l‚Æ‚Í‚³‚æ‚È‚ç‚·‚é)
+ * @@‹‘”Û: ¡ƒL[ƒv‚µ‚Ä‚¢‚él‚Ì•û‚ª‚æ‚¢‚È‚ç”’‚ğ’f‚é
+ * 3. 1,2 ‚ğŒJ‚è•Ô‚µA‘S’j«‚ª’N‚©‚µ‚ç‚ÉƒL[ƒv‚³‚ê‚½‚ç‚»‚Ì“_‚ÌƒyƒA(Š®‘Sƒ}ƒbƒ`ƒ“ƒO)‚ªŠ®¬
  *
- * å‚è€ƒ
+ * Ql
  * http://mathtrain.jp/galeshapley
  *
+ * Šg’£”ÅƒAƒ‹ƒSƒŠƒYƒ€(•¡”l‘Î‰”Å)
+ * 1. ’j«‚ÌÅ‘åƒL[ƒv”‚Ü‚Å’j«‚ª—«‚ğƒL[ƒv‚µ‚Ä‚¢‚È‚¢ê‡A
+ * @@¡‚Ü‚Åƒtƒ‰‚ê‚Ä‚¢‚È‚­AƒL[ƒv‚µ‚Ä‚él‚Å‚Í‚È‚¢l‚ÅAˆê”ÔŒ‹¥‚µ‚½‚¢—«‚É”’‚·‚éB
+ * 2. ”’‚ğó‚¯‚½—«‚ÍA
+ * @@ó—: —«‚ÌÅ‘åƒL[ƒv”‚Ü‚Å’j«‚ğƒL[ƒv‚µ‚Ä‚¢‚È‚¢@or
+ * @@@@@@—«‚ÌÅ‘åƒL[ƒv”‚Ü‚Å’j«‚ğƒL[ƒv‚µ‚Ä‚¢‚é‚ªAƒL[ƒv‚µ‚Ä‚¢‚é’j«‚ÌÅ’á(ˆê”Ô—Dæ“x‚ª’á‚¢l)‚æ‚è‚à
+ * @@@@@@@—‘z‚ª‚‚¢(—Dæ“x‚ª‚‚¢)l‚ª”’‚µ‚Ä‚«‚½‚çA”’‚µ‚Ä‚«‚½l‚ğƒL[ƒv‚·‚é
+ * @@@@@@@@(ƒL[ƒv‚µ‚Ä‚¢‚½Å’á‚Ìl‚Æ‚³‚æ‚È‚ç‚·‚é)
+ * @@‹‘”Û: ¡ƒL[ƒv‚µ‚Ä‚¢‚é‘Sˆõ‚É”’‚µ‚Ä‚«‚½l‚ªˆêl‚àŸ‚Ä‚È‚¢‚È‚ç’f‚é
+ *  3. 1,2 ‚ğŒJ‚è•Ô‚µA‘S’j«‚ªÅ‘åƒL[ƒv”‚Ü‚ÅƒL[ƒv‚ª‚Å‚«‚½‚ç‚»‚Ì“_‚ÅƒyƒA(Š®‘Sƒ}ƒbƒ`ƒ“ƒO)‚ªŠ®¬
+ *
  * @author koike
- * @since 2015.10.2
- * @version 1
+ * @since 2015.10.16
+ * @version 2
  *
- * memo 120min
+ * memo 180min
  *
- * å…¥åŠ›ã‚µãƒ³ãƒ—ãƒ«ã¯ä»¥ä¸‹
+ * “ü—ÍƒTƒ“ƒvƒ‹‚ÍˆÈ‰º
 
+ yƒeƒXƒg1Œ–Ú: 3:3 ‚ÅƒL[ƒv1z
+ ¥“ü—Í
  3
  3
  2 0 1
@@ -32,26 +45,173 @@ import java.util.Scanner;
  0 1 2
  2 0 1
  2 1 0
+ 1
+ 1
+ ¥o—Í
+ blue 0 ‚Ì”’, 0l‚ÍƒL[ƒvÏ
+ blue 0 ‚Ì 0 ”Ô–ÚŒó•â 2 (red‚©‚ç‚Í 2 ”Ô–ÚŒó•â) ‚É”’ (——R Œó•â‚È‚µ)
+ blue 1 ‚Ì”’, 0l‚ÍƒL[ƒvÏ
+ blue‚Ì 0 ‚³‚ñ‚ª 0 ”Ô–ÚŒó•â‚Å‚ ‚éred 2 ‚³‚ñ‚©‚çƒL[ƒv‰ğœ
+ blue 1 ‚Ì 0 ”Ô–ÚŒó•â 2 (red‚©‚ç‚Í 1 ”Ô–ÚŒó•â) ‚É”’ (——R ‚æ‚è—Ç‚¢)
+ blue 0 ‚Ì”’, 0l‚ÍƒL[ƒvÏ
+ blue 0 ‚Ì 1 ”Ô–ÚŒó•â 0 (red‚©‚ç‚Í 0 ”Ô–ÚŒó•â) ‚É”’ (——R Œó•â‚È‚µ)
+ blue 2 ‚Ì”’, 0l‚ÍƒL[ƒvÏ
+ blue 2 ‚Ì 0 ”Ô–ÚŒó•â 0 ‚É”’‚ğ’f‚é
+ blue 2 ‚Ì”’, 0l‚ÍƒL[ƒvÏ
+ blue‚Ì 1 ‚³‚ñ‚ª 0 ”Ô–ÚŒó•â‚Å‚ ‚éred 2 ‚³‚ñ‚©‚çƒL[ƒv‰ğœ
+ blue 2 ‚Ì 1 ”Ô–ÚŒó•â 2 (red‚©‚ç‚Í 0 ”Ô–ÚŒó•â) ‚É”’ (——R ‚æ‚è—Ç‚¢)
+ blue 1 ‚Ì”’, 0l‚ÍƒL[ƒvÏ
+ blue 1 ‚Ì 1 ”Ô–ÚŒó•â 1 (red‚©‚ç‚Í 2 ”Ô–ÚŒó•â) ‚É”’ (——R Œó•â‚È‚µ)
+ --- blue ---
+ blue 0 : 0,
+ blue 1 : 1,
+ blue 2 : 2,
 
- * å‡ºåŠ›ã‚µãƒ³ãƒ—ãƒ«ã¯ä»¥ä¸‹
+ --- red ---
+ red 0 : 0,
+ red 1 : 1,
+ red 2 : 2,
 
- blue 0 ã®å‘Šç™½
- blue 0 ã® 0 ç•ªç›®å€™è£œ 2 (redã‹ã‚‰ã¯ 2 ç•ªç›®å€™è£œ) ã«å‘Šç™½ (ç†ç”± å€™è£œãªã—)
- blue 1 ã®å‘Šç™½
- blueã® 0 ã•ã‚“ãŒ 0 ç•ªç›®å€™è£œã§ã‚ã‚‹red 2 ã•ã‚“ã‹ã‚‰ã‚­ãƒ¼ãƒ—è§£é™¤
- blue 1 ã® 0 ç•ªç›®å€™è£œ 2 (redã‹ã‚‰ã¯ 1 ç•ªç›®å€™è£œ) ã«å‘Šç™½ (ç†ç”± ã‚ˆã‚Šè‰¯ã„)
- blue 0 ã®å‘Šç™½
- blue 0 ã® 1 ç•ªç›®å€™è£œ 0 (redã‹ã‚‰ã¯ 0 ç•ªç›®å€™è£œ) ã«å‘Šç™½ (ç†ç”± å€™è£œãªã—)
- blue 2 ã®å‘Šç™½
- blue 2 ã® 0 ç•ªç›®å€™è£œ 0 ã«å‘Šç™½ã‚’æ–­ã‚‹
- blue 2 ã®å‘Šç™½
- blueã® 1 ã•ã‚“ãŒ 0 ç•ªç›®å€™è£œã§ã‚ã‚‹red 2 ã•ã‚“ã‹ã‚‰ã‚­ãƒ¼ãƒ—è§£é™¤
- blue 2 ã® 1 ç•ªç›®å€™è£œ 2 (redã‹ã‚‰ã¯ 0 ç•ªç›®å€™è£œ) ã«å‘Šç™½ (ç†ç”± ã‚ˆã‚Šè‰¯ã„)
- blue 1 ã®å‘Šç™½
- blue 1 ã® 1 ç•ªç›®å€™è£œ 1 (redã‹ã‚‰ã¯ 2 ç•ªç›®å€™è£œ) ã«å‘Šç™½ (ç†ç”± å€™è£œãªã—)
- 0	0
- 1	1
- 2	2
+ yƒeƒXƒg2Œ–Ú: 6:4 ‚ÅƒL[ƒv2:3z
+ ¥Ql
+ ‚Z@@@@@@@@@@@‘åŠw
+ a>b>c>d@‚P@a@1>2>3>4>5>6
+ b>c>a>d@‚Q@b@6>5>4>3>2>1
+ c>d>a>b@‚R@c@3>2>6>5>4>1
+ a>d>b>c@‚S@d@4>3>1>5>6>2
+ d>a>c>b@‚T@
+ b>a>d>c@‚U@@
+ ¥“ü—Í
+ 6
+ 4
+ 0 1 2 3
+ 1 2 0 3
+ 2 3 0 1
+ 0 3 1 2
+ 3 0 2 1
+ 1 0 3 2
+ 0 1 2 3 4 5
+ 5 4 3 2 1 0
+ 2 1 5 4 3 0
+ 3 2 0 4 5 1
+ 2
+ 3
+ ¥o—Í
+ blue 0 ‚Ì”’, 0l‚ÍƒL[ƒvÏ
+ blue 0 ‚Ì 0 ”Ô–ÚŒó•â 0 (red‚©‚ç‚Í 0 ”Ô–ÚŒó•â) ‚É”’ (——R Œó•â‚È‚µ)
+ blue 0 ‚Ì”’, 1l‚ÍƒL[ƒvÏ
+ blue 0 ‚Ì 1 ”Ô–ÚŒó•â 1 (red‚©‚ç‚Í 5 ”Ô–ÚŒó•â) ‚É”’ (——R Œó•â‚È‚µ)
+ blue 1 ‚Ì”’, 0l‚ÍƒL[ƒvÏ
+ blue 1 ‚Ì 0 ”Ô–ÚŒó•â 1 (red‚©‚ç‚Í 4 ”Ô–ÚŒó•â) ‚É”’ (——R Œó•â‚È‚µ)
+ blue 1 ‚Ì”’, 1l‚ÍƒL[ƒvÏ
+ blue 1 ‚Ì 1 ”Ô–ÚŒó•â 2 (red‚©‚ç‚Í 1 ”Ô–ÚŒó•â) ‚É”’ (——R Œó•â‚È‚µ)
+ blue 2 ‚Ì”’, 0l‚ÍƒL[ƒvÏ
+ blue 2 ‚Ì 0 ”Ô–ÚŒó•â 2 (red‚©‚ç‚Í 0 ”Ô–ÚŒó•â) ‚É”’ (——R Œó•â‚È‚µ)
+ blue 2 ‚Ì”’, 1l‚ÍƒL[ƒvÏ
+ blue 2 ‚Ì 1 ”Ô–ÚŒó•â 3 (red‚©‚ç‚Í 1 ”Ô–ÚŒó•â) ‚É”’ (——R Œó•â‚È‚µ)
+ blue 3 ‚Ì”’, 0l‚ÍƒL[ƒvÏ
+ blue 3 ‚Ì 0 ”Ô–ÚŒó•â 0 (red‚©‚ç‚Í 3 ”Ô–ÚŒó•â) ‚É”’ (——R Œó•â‚È‚µ)
+ blue 3 ‚Ì”’, 1l‚ÍƒL[ƒvÏ
+ blue 3 ‚Ì 1 ”Ô–ÚŒó•â 3 (red‚©‚ç‚Í 0 ”Ô–ÚŒó•â) ‚É”’ (——R Œó•â‚È‚µ)
+ blue 4 ‚Ì”’, 0l‚ÍƒL[ƒvÏ
+ blue 4 ‚Ì 0 ”Ô–ÚŒó•â 3 (red‚©‚ç‚Í 3 ”Ô–ÚŒó•â) ‚É”’ (——R Œó•â‚È‚µ)
+ blue 4 ‚Ì”’, 1l‚ÍƒL[ƒvÏ
+ blue 4 ‚Ì 1 ”Ô–ÚŒó•â 0 (red‚©‚ç‚Í 4 ”Ô–ÚŒó•â) ‚É”’ (——R Œó•â‚È‚µ)
+ blue 5 ‚Ì”’, 0l‚ÍƒL[ƒvÏ
+ blue 5 ‚Ì 0 ”Ô–ÚŒó•â 1 (red‚©‚ç‚Í 0 ”Ô–ÚŒó•â) ‚É”’ (——R Œó•â‚È‚µ)
+ blue 5 ‚Ì”’, 1l‚ÍƒL[ƒvÏ
+ blue 5 ‚Ì 1 ”Ô–ÚŒó•â 0 ‚É”’‚ğ’f‚é
+ blue 5 ‚Ì”’, 1l‚ÍƒL[ƒvÏ
+ blue 5 ‚Ì 2 ”Ô–ÚŒó•â 3 ‚É”’‚ğ’f‚é
+ blue 5 ‚Ì”’, 1l‚ÍƒL[ƒvÏ
+ blue 5 ‚Ì 3 ”Ô–ÚŒó•â 2 (red‚©‚ç‚Í 2 ”Ô–ÚŒó•â) ‚É”’ (——R Œó•â‚È‚µ)
+ --- blue ---
+ blue 0 : 0,1,
+ blue 1 : 1,2,
+ blue 2 : 2,3,
+ blue 3 : 0,3,
+ blue 4 : 3,0,
+ blue 5 : 1,2,
+
+ --- red ---
+ red 0 : 0,3,4,
+ red 1 : 5,1,0,
+ red 2 : 2,1,5,
+ red 3 : 3,2,4,
+
+ yƒeƒXƒg3Œ–Ú: 4:6 ‚ÅƒL[ƒv3:2z
+ ¥Ql
+ ‘åŠw@@@@@@@@@@‚Z
+ 1>2>3>4>5>6@a  1@a>b>c>d@
+ 6>5>4>3>2>1@b  2@b>c>a>d @
+ 3>2>6>5>4>1@c  3@c>d>a>b@
+ 4>3>1>5>6>2@d  4@a>d>b>c
+ @@@@@@@@  ‚T@d>a>c>b
+ @@@@@@@@  ‚U@b>a>d>c
+ ¥“ü—Í
+ 4
+ 6
+ 0 1 2 3 4 5
+ 5 4 3 2 1 0
+ 2 1 5 4 3 0
+ 3 2 0 4 5 1
+ 0 1 2 3
+ 1 2 0 3
+ 2 3 0 1
+ 0 3 1 2
+ 3 0 2 1
+ 1 0 3 2
+ 3
+ 2
+ ¥o—Í
+ blue 0 ‚Ì”’, 0l‚ÍƒL[ƒvÏ
+ blue 0 ‚Ì 0 ”Ô–ÚŒó•â 0 (red‚©‚ç‚Í 0 ”Ô–ÚŒó•â) ‚É”’ (——R Œó•â‚È‚µ)
+ blue 0 ‚Ì”’, 1l‚ÍƒL[ƒvÏ
+ blue 0 ‚Ì 1 ”Ô–ÚŒó•â 1 (red‚©‚ç‚Í 2 ”Ô–ÚŒó•â) ‚É”’ (——R Œó•â‚È‚µ)
+ blue 0 ‚Ì”’, 2l‚ÍƒL[ƒvÏ
+ blue 0 ‚Ì 2 ”Ô–ÚŒó•â 2 (red‚©‚ç‚Í 2 ”Ô–ÚŒó•â) ‚É”’ (——R Œó•â‚È‚µ)
+ blue 1 ‚Ì”’, 0l‚ÍƒL[ƒvÏ
+ blue 1 ‚Ì 0 ”Ô–ÚŒó•â 5 (red‚©‚ç‚Í 0 ”Ô–ÚŒó•â) ‚É”’ (——R Œó•â‚È‚µ)
+ blue 1 ‚Ì”’, 1l‚ÍƒL[ƒvÏ
+ blue 1 ‚Ì 1 ”Ô–ÚŒó•â 4 (red‚©‚ç‚Í 3 ”Ô–ÚŒó•â) ‚É”’ (——R Œó•â‚È‚µ)
+ blue 1 ‚Ì”’, 2l‚ÍƒL[ƒvÏ
+ blue 1 ‚Ì 2 ”Ô–ÚŒó•â 3 (red‚©‚ç‚Í 2 ”Ô–ÚŒó•â) ‚É”’ (——R Œó•â‚È‚µ)
+ blue 2 ‚Ì”’, 0l‚ÍƒL[ƒvÏ
+ blue 2 ‚Ì 0 ”Ô–ÚŒó•â 2 (red‚©‚ç‚Í 0 ”Ô–ÚŒó•â) ‚É”’ (——R Œó•â‚È‚µ)
+ blue 2 ‚Ì”’, 1l‚ÍƒL[ƒvÏ
+ blue 2 ‚Ì 1 ”Ô–ÚŒó•â 1 (red‚©‚ç‚Í 1 ”Ô–ÚŒó•â) ‚É”’ (——R Œó•â‚È‚µ)
+ blue 2 ‚Ì”’, 2l‚ÍƒL[ƒvÏ
+ blue 2 ‚Ì 2 ”Ô–ÚŒó•â 5 (red‚©‚ç‚Í 3 ”Ô–ÚŒó•â) ‚É”’ (——R Œó•â‚È‚µ)
+ blue 3 ‚Ì”’, 0l‚ÍƒL[ƒvÏ
+ blue 3 ‚Ì 0 ”Ô–ÚŒó•â 3 (red‚©‚ç‚Í 1 ”Ô–ÚŒó•â) ‚É”’ (——R Œó•â‚È‚µ)
+ blue 3 ‚Ì”’, 1l‚ÍƒL[ƒvÏ
+ blue‚Ì 0 ‚³‚ñ‚ª 2 ”Ô–ÚŒó•â‚Å‚ ‚éred 2 ‚³‚ñ‚©‚çƒL[ƒv‰ğœ
+ blue 3 ‚Ì 1 ”Ô–ÚŒó•â 2 (red‚©‚ç‚Í 1 ”Ô–ÚŒó•â) ‚É”’ (——R ‚æ‚è—Ç‚¢)
+ blue 0 ‚Ì”’, 2l‚ÍƒL[ƒvÏ
+ blue‚Ì 1 ‚³‚ñ‚ª 2 ”Ô–ÚŒó•â‚Å‚ ‚éred 3 ‚³‚ñ‚©‚çƒL[ƒv‰ğœ
+ blue 0 ‚Ì 3 ”Ô–ÚŒó•â 3 (red‚©‚ç‚Í 0 ”Ô–ÚŒó•â) ‚É”’ (——R ‚æ‚è—Ç‚¢)
+ blue 1 ‚Ì”’, 2l‚ÍƒL[ƒvÏ
+ blue 1 ‚Ì 3 ”Ô–ÚŒó•â 2 ‚É”’‚ğ’f‚é
+ blue 1 ‚Ì”’, 2l‚ÍƒL[ƒvÏ
+ blue‚Ì 0 ‚³‚ñ‚ª 1 ”Ô–ÚŒó•â‚Å‚ ‚éred 1 ‚³‚ñ‚©‚çƒL[ƒv‰ğœ
+ blue 1 ‚Ì 4 ”Ô–ÚŒó•â 1 (red‚©‚ç‚Í 0 ”Ô–ÚŒó•â) ‚É”’ (——R ‚æ‚è—Ç‚¢)
+ blue 0 ‚Ì”’, 2l‚ÍƒL[ƒvÏ
+ blue 0 ‚Ì 4 ”Ô–ÚŒó•â 4 (red‚©‚ç‚Í 1 ”Ô–ÚŒó•â) ‚É”’ (——R Œó•â‚È‚µ)
+ blue 3 ‚Ì”’, 2l‚ÍƒL[ƒvÏ
+ blue 3 ‚Ì 2 ”Ô–ÚŒó•â 0 (red‚©‚ç‚Í 3 ”Ô–ÚŒó•â) ‚É”’ (——R Œó•â‚È‚µ)
+ --- blue ---
+ blue 0 : 0,3,4,
+ blue 1 : 5,4,1,
+ blue 2 : 2,1,5,
+ blue 3 : 3,2,0,
+
+ --- red ---
+ red 0 : 0,3,
+ red 1 : 1,2,
+ red 2 : 2,3,
+ red 3 : 0,3,
+ red 4 : 0,1,
+ red 5 : 1,2,
 
 */
 public class GaleShapley {
@@ -82,19 +242,14 @@ public class GaleShapley {
 	    return -1;
 	}
 
-	int getKeepIndex(){
-	    for(int i=0;i<partner.length;i++){
+	/**
+	 * ƒL[ƒv‚µ‚Ä‚¢‚é’†‚ÅÅˆ«Ò‚ÌŒó•â”Ô†‚ğæ“¾‚·‚é
+	 * @return
+	 */
+	int getKeepWorstIndex(){
+	    for(int i=partner.length-1;i>=0;i--){
 		if(selection[i]){
 		    return i;
-		}
-	    }
-	    return -1;
-	}
-
-	int getKeepNumber(){
-	    for(int i=0;i<partner.length;i++){
-		if(selection[i]){
-		    return partner[i];
 		}
 	    }
 	    return -1;
@@ -104,8 +259,30 @@ public class GaleShapley {
 	    return bad[i]? true : false;
 	}
 
+	/**
+	 * index”Ô–Ú‚ğƒL[ƒv‚µ‚Ä‚¢‚é
+	 * @param index”Ô–Ú
+	 * @return ƒL[ƒvÏ
+	 */
+	boolean isKeep(int index) {
+	    return selection[index]? true : false;
+	}
+
+	/**
+	 * ƒL[ƒvl”
+	 * @return
+	 */
 	int getKeepCount(){
 	    return keepCount;
+	}
+
+	void printSelected(){
+	    for(int i=0;i<partner.length;i++){
+		if(selection[i]){
+		    System.out.print(partner[i]+",");
+		}
+	    }
+	    System.out.println();
 	}
 
 	void setPartner(int i, int p){
@@ -130,6 +307,7 @@ public class GaleShapley {
 	    setBad(i);
 	    selection[i] = false;
 	}
+
     }
 
     int blueN;
@@ -137,6 +315,8 @@ public class GaleShapley {
     Request[] blue_request;
     Request[] red_request;
     int processCount = 0;
+    int blue_max_keep;
+    int red_max_keep;
 
     public static void main(String[] args) {
 	new GaleShapley().run();
@@ -150,63 +330,75 @@ public class GaleShapley {
     }
 
     private void output() {
+	System.out.println("--- blue ---");
 	for(int i=0;i<blueN;i++){
-	    System.out.println(i+"\t"+blue_request[i].getKeepNumber());
+	    System.out.print("blue "+i+" : ");
+	    blue_request[i].printSelected();
+	}
+	System.out.println();
+	System.out.println("--- red ---");
+	for(int i=0;i<redN;i++){
+	    System.out.print("red "+i+" : ");
+	    red_request[i].printSelected();
 	}
     }
 
     private void calculate() {
 	while(!isAllSelected()){
-	    processCount++;
-	    if(processCount>10){
-		return;
-	    }
+	    //			processCount++;
+	    //			if(processCount>10){
+	    //				return;
+	    //			}
 	    SelectProcess:
-	    // å‘Šç™½è€… i
+	    // ”’Ò i
 	    for(int i=0;i<blueN;i++){
-		// å‘Šç™½è€… i ã®ã‚­ãƒ¼ãƒ—äººæ•°ãŒ 0
-		if(blue_request[i].getKeepCount()==0){
-		    // å‘Šç™½ã®é¸å®šå¾Œã€å‘Šç™½å®Ÿè¡Œ
-		    System.out.println("blue "+i+" ã®å‘Šç™½");
-		    // å€™è£œé †ã«
+		// ”’Ò i ‚ÌƒL[ƒvl”‚ª Å‘å’l‚É‚È‚Á‚Ä‚¢‚È‚¢
+		if(blue_request[i].getKeepCount()!=blue_max_keep){
+		    // ”’‚Ì‘I’èŒãA”’Às
+		    System.out.println("blue "+i+" ‚Ì”’, "
+				       +blue_request[i].getKeepCount()+"l‚ÍƒL[ƒvÏ");
+		    // Œó•â‡‚É
 		    for(int j=0;j<redN;j++){
-			// å€™è£œ j ç•ªç›®ã® red t ã•ã‚“ã«ç€ç›®
+			// Œó•â j ”Ô–Ú‚Ì red t ‚³‚ñ‚É’…–Ú
 			int t = blue_request[i].getNumber(j);
-			// blue å‘Šç™½è€… i ã® j ç•ªç›®å€™è£œã«å¯¾ã™ã‚‹æ—¢ã«æ–­ã‚‰ã‚Œã¦ãªã„
-			if(!blue_request[i].isBad(j)){
-			    // red tã•ã‚“ã® ã‚­ãƒ¼ãƒ—äººæ•°ãŒ 0
-			    if(red_request[t].getKeepCount()==0){
-				// blue i ã•ã‚“ ãŒ å€™è£œ j ç•ªç›®ã®å‘Šç™½ã«æˆåŠŸ
+			// blue ”’Ò i ‚Ì j ”Ô–ÚŒó•â‚É‘Î‚·‚éŠù‚É’f‚ç‚ê‚Ä‚È‚¢ ‚©‚Â@j”Ô–Ú‚ğŠù‚ÉƒL[ƒv‚µ‚Ä‚È‚¢
+			if(!blue_request[i].isBad(j)&&!blue_request[i].isKeep(j)){
+			    // red t‚³‚ñ‚Ì ƒL[ƒvl”‚ª Å‘å’l‚É‚È‚Á‚Ä‚¢‚È‚¢
+			    if(red_request[t].getKeepCount()!=red_max_keep){
+				// blue i ‚³‚ñ ‚ª Œó•â j ”Ô–Ú‚Ì”’‚É¬Œ÷
 				blue_request[i].setSelect(j);
-				// red t ã•ã‚“ã«ã¨ã£ã¦ã® å‘Šç™½è€… blue i ã•ã‚“ã®å„ªå…ˆåº¦
+				// red t ‚³‚ñ‚É‚Æ‚Á‚Ä‚Ì ”’Ò blue i ‚³‚ñ‚Ì—Dæ“x
 				int y = red_request[t].getIndex(i);
-				// red t ã•ã‚“ã® yç•ªç›®ã®å€™è£œãŒå®Ÿã‚‹
+				// red t ‚³‚ñ‚Ì y”Ô–Ú‚ÌŒó•â‚ªÀ‚é
 				red_request[t].setSelect(y);
-				System.out.println("\tblue "+i+" ã® "+j+" ç•ªç›®å€™è£œ "+t+" (redã‹ã‚‰ã¯ "+y+" ç•ªç›®å€™è£œ) ã«å‘Šç™½ (ç†ç”± å€™è£œãªã—)");
+				System.out.println("\tblue "+i+" ‚Ì "+j+" ”Ô–ÚŒó•â "
+						   +t+" (red‚©‚ç‚Í "+y+" ”Ô–ÚŒó•â) ‚É”’ (——R Œó•â‚È‚µ)");
 				break SelectProcess;
 			    }
-			    // red tã•ã‚“ã®ã‚­ãƒ¼ãƒ—ã®å€™è£œé †ä½ãŒã€€å‘Šç™½è€…blue i ã•ã‚“ã®å€™è£œé †ä½ã‚ˆã‚Šä½ã„(æ•°å­—ãŒå¤§ãã„)
-			    else if(red_request[t].getKeepIndex()>red_request[t].getIndex(i)){
-				// red t ã•ã‚“ã®ã‚­ãƒ¼ãƒ—å€™è£œé †ä½ before
-				int before = red_request[t].getKeepIndex();
-				// red t ã•ã‚“ã® å€™è£œ before ç•ªç›®ã¯ ãŠæ–­ã‚Š
+			    // red t‚³‚ñ‚ÌÅˆ«ÒƒL[ƒv‚ÌŒó•â‡ˆÊ‚ª@”’Òblue i ‚³‚ñ‚ÌŒó•â‡ˆÊ‚æ‚è’á‚¢(”š‚ª‘å‚«‚¢)
+			    else if(red_request[t].getKeepWorstIndex()>red_request[t].getIndex(i)){
+				// red t ‚³‚ñ‚ÌÅˆ«ƒL[ƒvŒó•â‡ˆÊ before
+				int before = red_request[t].getKeepWorstIndex();
+				// red t ‚³‚ñ‚Ì Œó•â before ”Ô–Ú‚ÌÅˆ«Ò‚Í ‚¨’f‚è
 				red_request[t].removeSelect(before);
-				// â˜…ãƒ–ãƒ«ãƒ¼å´ã‚’æ–­ã‚‹å¿…è¦ãŒã‚ã‚‹
+				// šƒuƒ‹[‘¤‚ğ’f‚é•K—v‚ª‚ ‚é
 				{
 				    int before_blue = red_request[t].getNumber(before);
 				    int blue_priority = blue_request[before_blue].getIndex(t);
 				    blue_request[before_blue].removeSelect(blue_priority);
-				    System.out.println("\tblueã® "+before_blue+" ã•ã‚“ãŒ "+blue_priority+" ç•ªç›®å€™è£œã§ã‚ã‚‹red "+t+" ã•ã‚“ã‹ã‚‰ã‚­ãƒ¼ãƒ—è§£é™¤");
+				    System.out.println("\tblue‚Ì "+before_blue+" ‚³‚ñ‚ª "
+						       +blue_priority+" ”Ô–ÚŒó•â‚Å‚ ‚éred "+t+" ‚³‚ñ‚©‚çƒL[ƒv‰ğœ");
 				}
 				blue_request[i].setSelect(j);
 				int y = red_request[t].getIndex(i);
 				red_request[t].setSelect(y);
-				System.out.println("\tblue "+i+" ã® "+j+" ç•ªç›®å€™è£œ "+t+" (redã‹ã‚‰ã¯ "+y+" ç•ªç›®å€™è£œ) ã«å‘Šç™½ (ç†ç”± ã‚ˆã‚Šè‰¯ã„)");
+				System.out.println("\tblue "+i+" ‚Ì "+j+" ”Ô–ÚŒó•â "
+						   +t+" (red‚©‚ç‚Í "+y+" ”Ô–ÚŒó•â) ‚É”’ (——R ‚æ‚è—Ç‚¢)");
 				break SelectProcess;
 			    }
 			    else{
 				blue_request[i].setBad(j);
-				System.out.println("\tblue "+i+" ã® "+j+" ç•ªç›®å€™è£œ "+t+" ã«å‘Šç™½ã‚’æ–­ã‚‹");
+				System.out.println("\tblue "+i+" ‚Ì "+j+" ”Ô–ÚŒó•â "+t+" ‚É”’‚ğ’f‚é");
 				break SelectProcess;
 			    }
 			}
@@ -216,9 +408,13 @@ public class GaleShapley {
 	}
     }
 
+    /**
+     * ”’‘¤(ƒuƒ‹[)‚Ì‘Sˆõ‚É‚Â‚¢‚ÄA‹ó‚«‚ªƒ[ƒ‚©Šm”F
+     * @return ‹ó‚«ƒ[ƒ‚Ì^‹U’l
+     */
     private boolean isAllSelected() {
-	for(int i=0;i<redN;i++){
-	    if(red_request[i].getKeepCount()!=1){
+	for(int i=0;i<blueN;i++){
+	    if(blue_request[i].getKeepCount()!=blue_max_keep){
 		return false;
 	    }
 	}
@@ -244,5 +440,7 @@ public class GaleShapley {
 		red_request[i].setPartner(j, stdIn.nextInt());
 	    }
 	}
+	blue_max_keep = stdIn.nextInt();
+	red_max_keep = stdIn.nextInt();
     }
 }
